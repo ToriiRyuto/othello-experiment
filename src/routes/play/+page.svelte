@@ -1,4 +1,45 @@
 <script lang="ts">
+  /* ----------------------------------------------------
+     ★ スマホ誤操作防止（ダブルタップ拡大・ピンチズーム・
+        プルダウンリロード防止）
+     ---------------------------------------------------- */
+  let lastTap = 0;
+  const preventDoubleTapZoom = (e: TouchEvent) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      e.preventDefault();
+    }
+    lastTap = now;
+  };
+
+  const preventPinchZoom = (e: TouchEvent) => {
+    if (e.touches.length > 1) {
+      e.preventDefault();
+    }
+  };
+
+  let lastTouchY = 0;
+  const preventPullToRefresh = (e: TouchEvent) => {
+    const touchY = e.touches[0].clientY;
+    const scrollY = window.scrollY;
+
+    if (scrollY === 0 && touchY > lastTouchY) {
+      e.preventDefault();
+    }
+    lastTouchY = touchY;
+  };
+
+  import { onMount } from 'svelte';
+  onMount(() => {
+    window.addEventListener("touchend", preventDoubleTapZoom, { passive: false });
+    window.addEventListener("touchmove", preventPinchZoom, { passive: false });
+    window.addEventListener("touchmove", preventPullToRefresh, { passive: false });
+  });
+
+  /* ----------------------------------------------------
+     ★ ここから元の play ロジック
+     ---------------------------------------------------- */
+
   import { writable, get } from 'svelte/store';
   import type { Bitboard, Disc } from '$lib/board';
   import {
@@ -12,7 +53,6 @@
     BOARD_SIZE
   } from '$lib/board';
   import { playerTimeLeft, playerTimerId, aiTimeLeft, aiTimerId, finishGame } from '$lib/gameState';
-  import { onMount } from 'svelte';
   import sprite from './profileImage.png';
   import bgImage from './bgImage.png';
 
@@ -77,12 +117,11 @@
     myIndex = Number(localStorage.getItem("profileIndex") ?? 0);
 
     if (aiPlayer === "black") {
-      firstPlayer = "opponent";   // AIが黒 → AIが先攻
+      firstPlayer = "opponent";
     } else {
-      firstPlayer = "me";         // AIが白 → 自分が先攻
+      firstPlayer = "me";
     }
     localStorage.setItem("firstPlayer", firstPlayer);
-    console.log(`先攻は ${firstPlayer === "me" ? "自分" : "相手"} です`);
 
     if (managementNumber === 1) {
       oppName = "Haru";
@@ -103,12 +142,6 @@
       oppName = "Haru";
       oppComment = "勝負が好きなので負けません！";
       oppIndex = 6;
-    }
-
-    if (aiPlayer === 'black') {
-      localStorage.setItem('firstPlayer', 'opponent');
-    } else {
-      localStorage.setItem('firstPlayer', 'me');
     }
 
     worker = new Worker(new URL('$lib/worker.ts', import.meta.url), { type: 'module' });
@@ -360,6 +393,14 @@
 </script>
 
 <style>
+  /* ★ スマホ誤操作防止（ズーム・スクロール・選択禁止） */
+  html, body {
+    overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   .page {
     width: 100vw;
     height: 100vh;
@@ -488,10 +529,10 @@
 
     display: flex;
     align-items: center;
-    justify-content: center; /* 管理番号1〜3は中央寄せ */
+    justify-content: center;
   }
 
-  /* 管理番号4専用：画像左固定＋テキスト右流動 */
+  /* 管理番号4専用 */
   .profile-card.m4 {
     justify-content: flex-start;
     padding-left: 16px;
@@ -505,9 +546,9 @@
     flex-shrink: 0;
   }
 
-  /* 管理番号2専用：名前＋コメント中央寄せ＋行分け＋統一フォント */
+  /* 管理番号2専用 */
   .profile-card.m2 {
-    flex-direction: column; /* 縦並びにする */
+    flex-direction: column;
     justify-content: center;
   }
 
@@ -515,9 +556,9 @@
   .profile-card.m2 .comment {
     width: 100%;
     text-align: center;
-    font-size: 16px;     /* 統一 */
-    font-weight: bold;   /* 統一 */
-    margin: 0;           /* 行間調整 */
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
     padding: 0;
   }
 
@@ -525,7 +566,7 @@
     margin-top: 4px;
   }
 
-  /* 管理番号1専用：相手・自分だけ中央寄せ */
+  /* 管理番号1専用 */
   .profile-card.m1 {
     justify-content: center;
     font-size: 18px;

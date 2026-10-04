@@ -1,5 +1,44 @@
 <script lang="ts">
+  /* ----------------------------------------------------
+     ★ スマホ誤操作防止（ズーム・スクロール・リロード防止）
+     ---------------------------------------------------- */
+  let lastTap = 0;
+  const preventDoubleTapZoom = (e: TouchEvent) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      e.preventDefault();
+    }
+    lastTap = now;
+  };
+
+  const preventPinchZoom = (e: TouchEvent) => {
+    if (e.touches.length > 1) {
+      e.preventDefault();
+    }
+  };
+
+  let lastTouchY = 0;
+  const preventPullToRefresh = (e: TouchEvent) => {
+    const touchY = e.touches[0].clientY;
+    const scrollY = window.scrollY;
+
+    if (scrollY === 0 && touchY > lastTouchY) {
+      e.preventDefault();
+    }
+    lastTouchY = touchY;
+  };
+
   import { onMount } from 'svelte';
+  onMount(() => {
+    window.addEventListener("touchend", preventDoubleTapZoom, { passive: false });
+    window.addEventListener("touchmove", preventPinchZoom, { passive: false });
+    window.addEventListener("touchmove", preventPullToRefresh, { passive: false });
+  });
+
+  /* ----------------------------------------------------
+     ★ ここから元の matching ロジック
+     ---------------------------------------------------- */
+
   import sprite from './profileImage.png';
   import bgImage from './bgImage.png';
 
@@ -160,6 +199,19 @@
 </div>
 
 <style>
+  /* ★ スマホ誤操作防止 */
+  :global(html),
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   :global(body.fade-out) {
     animation: fadeOut 0.6s forwards;
   }

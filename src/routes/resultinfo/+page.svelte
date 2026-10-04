@@ -1,4 +1,44 @@
 <script lang="ts">
+  /* ----------------------------------------------------
+     ★ スマホ誤操作防止（ズーム・スクロール・リロード防止）
+     ---------------------------------------------------- */
+  let lastTap = 0;
+  const preventDoubleTapZoom = (e: TouchEvent) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      e.preventDefault();
+    }
+    lastTap = now;
+  };
+
+  const preventPinchZoom = (e: TouchEvent) => {
+    if (e.touches.length > 1) {
+      e.preventDefault();
+    }
+  };
+
+  let lastTouchY = 0;
+  const preventPullToRefresh = (e: TouchEvent) => {
+    const touchY = e.touches[0].clientY;
+    const scrollY = window.scrollY;
+
+    if (scrollY === 0 && touchY > lastTouchY) {
+      e.preventDefault();
+    }
+    lastTouchY = touchY;
+  };
+
+  import { onMount } from 'svelte';
+  onMount(() => {
+    window.addEventListener("touchend", preventDoubleTapZoom, { passive: false });
+    window.addEventListener("touchmove", preventPinchZoom, { passive: false });
+    window.addEventListener("touchmove", preventPullToRefresh, { passive: false });
+  });
+
+  /* ----------------------------------------------------
+     ★ ここから元の resultinfo ロジック
+     ---------------------------------------------------- */
+
   import sprite from '../play/profileImage.png';
   import bgImage from '../play/bgImage.png';
   import { gameResult } from '$lib/gameState';
@@ -22,7 +62,6 @@
     '1.75% 97.5%', '21% 99%', '40% 99%', '59.7% 99%', '79.5% 99%', '99% 99%'
   ];
 
-  // ★ localStorage 読み込み
   $effect(() => {
     if (typeof localStorage !== "undefined") {
       managementNumber = Number(localStorage.getItem("managementNumber") ?? 1);
@@ -32,9 +71,7 @@
       myIndex = Number(localStorage.getItem("profileIndex") ?? 0);
 
       firstPlayer = localStorage.getItem("firstPlayer") ?? "me";
-      console.log(`先攻は ${firstPlayer === "me" ? "自分" : "相手"} です`);
 
-      // 相手プロフィール（固定）
       oppName = "Haru";
       oppComment = "勝負が好きなので負けません！";
       oppIndex = 6;
@@ -45,13 +82,12 @@
     goto('/resultnext');
   }
 
-  // ★ 駒を枚数分生成（折り返し強化）
   function discs(count: number, color: "black" | "white") {
-    const perRow = 18; // ← 1段に並べる枚数を増やした（32pxでも収まる）
+    const perRow = 18;
     return Array.from({ length: count }, (_, i) => ({
       color,
       row: Math.floor(i / perRow),
-      offset: (i % perRow) * 14  // ← 駒サイズ32pxに合わせて調整
+      offset: (i % perRow) * 14
     }));
   }
 </script>
@@ -61,7 +97,6 @@
 
   <div class="resultinfo">
 
-    <!-- 勝敗 -->
     <div class="result-banner { $gameResult.winner }">
       {#if $gameResult.winner === 'YouWin'}
         🎉 You Win!! 🎉
@@ -72,7 +107,7 @@
       {/if}
     </div>
 
-    <!-- 相手プロフィールカード -->
+    <!-- 相手プロフィール -->
     <div class="profile-card opponent-card
       {managementNumber === 4 ? 'm4' : ''}
       {managementNumber === 2 ? 'm2' : ''}
@@ -116,41 +151,37 @@
       {/if}
     </div>
 
-    <!-- 上：相手の駒 -->
+    <!-- 相手の駒 -->
     <div class="disc-stack">
-    {#if firstPlayer === "me"}
-        <!-- 自分が先攻 → 相手は白 -->
+      {#if firstPlayer === "me"}
         <span class="score-text">{$gameResult.white}</span>
         {#each discs($gameResult.white, "white") as d}
-        <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
+          <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
         {/each}
-    {:else}
-        <!-- 自分が後攻 → 相手は黒 -->
+      {:else}
         <span class="score-text">{$gameResult.black}</span>
         {#each discs($gameResult.black, "black") as d}
-        <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
+          <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
         {/each}
-    {/if}
+      {/if}
     </div>
 
-    <!-- 下：自分の駒 -->
+    <!-- 自分の駒 -->
     <div class="disc-stack">
-    {#if firstPlayer === "me"}
-        <!-- 自分が先攻 → 自分は黒 -->
+      {#if firstPlayer === "me"}
         <span class="score-text">{$gameResult.black}</span>
         {#each discs($gameResult.black, "black") as d}
-        <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
+          <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
         {/each}
-    {:else}
-        <!-- 自分が後攻 → 自分は白 -->
+      {:else}
         <span class="score-text">{$gameResult.white}</span>
         {#each discs($gameResult.white, "white") as d}
-        <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
+          <div class="disc {d.color}" style={`transform: translate(${d.offset}px, ${d.row * 26}px);`}></div>
         {/each}
-    {/if}
+      {/if}
     </div>
 
-    <!-- 自分プロフィールカード -->
+    <!-- 自分プロフィール -->
     <div class="profile-card me-card
       {managementNumber === 4 ? 'm4' : ''}
       {managementNumber === 2 ? 'm2' : ''}
@@ -200,6 +231,14 @@
 </div>
 
 <style>
+  /* ★ スマホ誤操作防止 */
+  html, body {
+    overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   .resultinfo-page {
     width: 100vw;
     min-height: 100vh;
@@ -322,13 +361,12 @@
     text-align: left;
   }
 
-  /* 駒スタック（折り返し強化） */
   .disc-stack {
     width: 100%;
     max-width: 340px;
     margin: 14px auto;
     position: relative;
-    height: 60px; /* ← 1段下げ＋段数増加に対応 */
+    height: 60px;
   }
 
   .disc {
@@ -336,7 +374,7 @@
     height: 32px;
     border-radius: 50%;
     position: absolute;
-    left: 50px; /* 数字の左にスペース */
+    left: 50px;
   }
 
   .disc.black {

@@ -1,10 +1,49 @@
 <script lang="ts">
+  /* ----------------------------------------------------
+     ★ スマホ誤操作防止（ズーム・スクロール・リロード防止）
+     ---------------------------------------------------- */
+  let lastTap = 0;
+  const preventDoubleTapZoom = (e: TouchEvent) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      e.preventDefault();
+    }
+    lastTap = now;
+  };
+
+  const preventPinchZoom = (e: TouchEvent) => {
+    if (e.touches.length > 1) {
+      e.preventDefault();
+    }
+  };
+
+  let lastTouchY = 0;
+  const preventPullToRefresh = (e: TouchEvent) => {
+    const touchY = e.touches[0].clientY;
+    const scrollY = window.scrollY;
+
+    if (scrollY === 0 && touchY > lastTouchY) {
+      e.preventDefault();
+    }
+    lastTouchY = touchY;
+  };
+
+  import { onMount } from 'svelte';
+  onMount(() => {
+    window.addEventListener("touchend", preventDoubleTapZoom, { passive: false });
+    window.addEventListener("touchmove", preventPinchZoom, { passive: false });
+    window.addEventListener("touchmove", preventPullToRefresh, { passive: false });
+  });
+
+  /* ----------------------------------------------------
+     ★ ここから元の resultnext ロジック
+     ---------------------------------------------------- */
+
   import bgImage from '../play/bgImage.png';
 
   let logString = $state('');
   let surveyUrl = $state("");
 
-  // ★ ログ読み込み
   $effect(() => {
     if (typeof localStorage === "undefined") return;
 
@@ -26,7 +65,6 @@
       logString = "";
     }
 
-    // ★ アンケートURL
     const num = Number(localStorage.getItem("managementNumber") ?? 1);
     const surveyUrls = {
       1: "https://forms.gle/7JHAw4mfboDtQ82y6",
@@ -70,6 +108,14 @@
 </div>
 
 <style>
+  /* ★ スマホ誤操作防止 */
+  html, body {
+    overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   .resultnext-page {
     width: 100vw;
     min-height: 100vh;
