@@ -4,7 +4,7 @@ import type { Bitboard, Disc } from './board';
 
 let stopFlagInternal = false;
 
-onmessage = (event) => {
+onmessage = async (event) => {
   const { blackBits, whiteBits, player, maxDepth, timeLimit, stop, moveCount } = event.data as {
     blackBits: bigint;
     whiteBits: bigint;
@@ -44,7 +44,7 @@ onmessage = (event) => {
       true,
       stopFlag
     );
-    console.log(Math.round(result.score*100)/100, result.move);
+    console.log(Math.round(result.score * 100) / 100, result.move);
 
     if (result.move !== null) {
       bestMoveSoFar = result.move;
@@ -56,6 +56,17 @@ onmessage = (event) => {
     }
   }
 
+  // ★ 探索終了時間
+  const elapsed = performance.now() - startTime;
+
+  // ★ 探索が1秒以内なら、1〜3秒ランダムで待つ
+  if (elapsed < 1000) {
+    const wait = 1000 + Math.random() * 2000; // 1000〜3000ms
+    console.log(`探索が速すぎたので ${wait}ms 待機`);
+    await new Promise((resolve) => setTimeout(resolve, wait));
+  }
+
+  // ★ 待機後に結果を返す
   postMessage({
     move: bestMoveSoFar,
     explore: exploreCount,

@@ -231,6 +231,7 @@
     font-size: 32px;
     font-weight: bold;
     padding: 16px;
+    margin-top: 70px;
     margin-bottom: 20px;
     border-radius: 12px;
     animation: glow 2s infinite alternate;
@@ -327,7 +328,7 @@
     max-width: 340px;
     margin: 14px auto;
     position: relative;
-    height: 90px; /* ← 1段下げ＋段数増加に対応 */
+    height: 60px; /* ← 1段下げ＋段数増加に対応 */
   }
 
   .disc {
@@ -361,7 +362,7 @@
 
   .next-hint {
     position: absolute;
-    bottom: 20px;
+    bottom: 12%;
     width: 100%;
     text-align: center;
     font-size: 18px;

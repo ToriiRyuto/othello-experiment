@@ -23,7 +23,17 @@
     '1.75% 97.5%', '21% 99%', '40% 99%', '59.7% 99%', '79.5% 99%', '99% 99%'
   ];
 
-  onMount(() => {
+  // ★ 画像読み込みを Promise 化
+  function preloadImage(src: string) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve(true);
+      img.onerror = () => reject(false);
+    });
+  }
+
+  onMount(async () => {
     managementNumber = Number(localStorage.getItem('managementNumber') || 1);
     username = localStorage.getItem('username') || "";
     comment = localStorage.getItem('comment') || "";
@@ -31,20 +41,38 @@
 
     firstPlayer = localStorage.getItem("firstPlayer") || "me";
 
+    // ★ 管理番号1は即スキップ（既存仕様）
     if (managementNumber === 1) {
-      window.location.href = "/play";
+      const wait = 1200 + Math.random() * 1600;
+      setTimeout(() => {
+        window.location.href = "/play";
+      }, wait);
       return;
     }
 
-    setTimeout(() => { showOpponent = true; }, 200);
-    setTimeout(() => { showMe = true; }, 600);
+    // ★ sprite と bgImage の両方読み込みを待つ
+    try {
+      await Promise.all([
+        preloadImage(sprite),
+        preloadImage(bgImage)
+      ]);
 
-    setTimeout(() => {
-      document.body.classList.add('fade-out');
+      // ★ 読み込み完了後にアニメーション開始
+      setTimeout(() => { showOpponent = true; }, 200);
+      setTimeout(() => { showMe = true; }, 600);
+
+      // ★ 遷移処理も読み込み後に開始
       setTimeout(() => {
-        window.location.href = '/play';
-      }, 600);
-    }, 3000);
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+          window.location.href = '/play';
+        }, 600);
+      }, 3000);
+
+    } catch (e) {
+      // ★ 読み込み失敗時は保険として即遷移
+      window.location.href = "/play";
+    }
   });
 
   const myBgColor = $derived(firstPlayer === "me" ? "#000" : "#fff");
@@ -59,7 +87,6 @@
     <!-- 相手プロフィール -->
     <div class={`card opponent ${showOpponent ? 'show' : ''}`}>
 
-      <!-- ★ 管理番号4の順番：名前 → キャラ画像 → コメント -->
       {#if managementNumber === 4}
         <div class="item center-text">名前：{opponentName}</div>
 
@@ -96,7 +123,6 @@
     <!-- 自分プロフィール -->
     <div class={`card me ${showMe ? 'show' : ''}`}>
 
-      <!-- ★ 管理番号4の順番：名前 → キャラ画像 → コメント -->
       {#if managementNumber === 4}
         <div class="item center-text">名前：{username}</div>
 
@@ -167,7 +193,6 @@
     pointer-events: none;
   }
 
-  /* ★ カードの大きさを固定 */
   .card {
     position: absolute;
     width: 80%;

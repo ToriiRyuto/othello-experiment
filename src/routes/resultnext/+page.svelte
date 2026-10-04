@@ -99,6 +99,7 @@
 
   h2 {
     font-size: 26px;
+    margin-top: 150px;
     margin-bottom: 10px;
   }
 
