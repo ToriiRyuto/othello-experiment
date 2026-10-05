@@ -761,7 +761,7 @@
         ></div>
 
       {:else if managementNumber === 1}
-        自分
+        あなた
       {/if}
     </div>
 
