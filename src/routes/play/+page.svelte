@@ -580,6 +580,15 @@
     border: 1px solid rgba(255, 120, 120, 0.4);
   }
 
+  .thinking {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    font-size: 16px;
+    opacity: 0.85;
+    color: #fff;
+  }
+
   .me {
     bottom: 3%;
     background: rgba(80, 160, 255, 0.25);
@@ -673,6 +682,10 @@
 
       {:else if managementNumber === 1}
         相手
+      {/if}
+
+      {#if getTurn($moveCount) === aiPlayer}
+        <div class="thinking">考え中...</div>
       {/if}
     </div>
 
