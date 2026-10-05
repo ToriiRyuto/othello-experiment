@@ -584,7 +584,7 @@
     position: absolute;
     right: 10px;
     bottom: 6px;
-    font-size: 16px;
+    font-size: 13px;
     opacity: 0.85;
     color: #fff;
   }
