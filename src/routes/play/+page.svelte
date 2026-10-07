@@ -130,7 +130,7 @@
     }
     if (managementNumber === 2) {
       oppName = "Haru";
-      oppComment = "勝負が好きなので負けません！";
+      oppComment = "楽しく対戦しましょう！負けません！";
       oppIndex = 6;
     }
     if (managementNumber === 3) {
@@ -140,7 +140,7 @@
     }
     if (managementNumber === 4) {
       oppName = "Haru";
-      oppComment = "勝負が好きなので負けません！";
+      oppComment = "楽しく対戦しましょう！負けません！";
       oppIndex = 6;
     }
 
