@@ -103,7 +103,8 @@
   .top-message {
     color: #000;
     font-size: 18px;
-    margin-bottom: 20px;
+    margin-top: 30%;
+    margin-bottom: 10%;
     font-weight: bold;
     text-align: center;
   }
