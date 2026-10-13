@@ -36,7 +36,7 @@
   });
 
   /* ----------------------------------------------------
-     ★ ここから元の matching ロジック
+     ★ matching ロジック
      ---------------------------------------------------- */
 
   import sprite from './profileImage.png';
@@ -62,7 +62,6 @@
     '1.75% 97.5%', '21% 99%', '40% 99%', '59.7% 99%', '79.5% 99%', '99% 99%'
   ];
 
-  // ★ 画像読み込みを Promise 化
   function preloadImage(src: string) {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -80,7 +79,6 @@
 
     firstPlayer = localStorage.getItem("firstPlayer") || "me";
 
-    // ★ 管理番号1は即スキップ（既存仕様）
     if (managementNumber === 1) {
       const wait = 1200 + Math.random() * 1600;
       setTimeout(() => {
@@ -89,18 +87,15 @@
       return;
     }
 
-    // ★ sprite と bgImage の両方読み込みを待つ
     try {
       await Promise.all([
         preloadImage(sprite),
         preloadImage(bgImage)
       ]);
 
-      // ★ 読み込み完了後にアニメーション開始
       setTimeout(() => { showOpponent = true; }, 200);
       setTimeout(() => { showMe = true; }, 600);
 
-      // ★ 遷移処理も読み込み後に開始
       setTimeout(() => {
         document.body.classList.add('fade-out');
         setTimeout(() => {
@@ -109,7 +104,6 @@
       }, 3000);
 
     } catch (e) {
-      // ★ 読み込み失敗時は保険として即遷移
       window.location.href = "/play";
     }
   });
@@ -134,7 +128,7 @@
           style={`
             background-image: url(${sprite});
             background-position: ${positions[opponentIndex]};
-            background-size: ${opponentIndex >= 12 ? '660% 330%' : '600% 300%'};
+            background-size: 600% 300%;
             background-color: ${opponentBgColor};
           `}
         ></div>
@@ -151,7 +145,7 @@
           style={`
             background-image: url(${sprite});
             background-position: ${positions[opponentIndex]};
-            background-size: ${opponentIndex >= 12 ? '660% 330%' : '600% 300%'};
+            background-size: 600% 300%;
             background-color: ${opponentBgColor};
           `}
         ></div>
@@ -170,7 +164,7 @@
           style={`
             background-image: url(${sprite});
             background-position: ${positions[profileIndex]};
-            background-size: ${profileIndex >= 12 ? '660% 330%' : '600% 300%'};
+            background-size: 600% 300%;
             background-color: ${myBgColor};
           `}
         ></div>
@@ -187,7 +181,7 @@
           style={`
             background-image: url(${sprite});
             background-position: ${positions[profileIndex]};
-            background-size: ${profileIndex >= 12 ? '660% 330%' : '600% 300%'};
+            background-size: 600% 300%;
             background-color: ${myBgColor};
           `}
         ></div>
@@ -199,7 +193,6 @@
 </div>
 
 <style>
-  /* ★ スマホ誤操作防止 */
   :global(html),
   :global(body) {
     margin: 0;
@@ -210,6 +203,7 @@
     touch-action: none;
     -webkit-user-select: none;
     user-select: none;
+    background: #000;
   }
 
   :global(body.fade-out) {
@@ -223,7 +217,7 @@
 
   .profile {
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background: #000;
     display: flex;
     justify-content: center;
@@ -232,13 +226,13 @@
 
   .screen {
     position: relative;
-    width: min(100vw, 66.6667vh);
-    height: min(100vh, 150vw);
+    width: min(100vw, 66.6667svh);
     aspect-ratio: 2 / 3;
   }
 
   .background-image {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -248,13 +242,13 @@
   .card {
     position: absolute;
     width: 80%;
-    height: 35%;
+    height: 32%;
     padding: 20px;
     border-radius: 14px;
     backdrop-filter: blur(6px);
     font-size: 16px;
     opacity: 0;
-    transition: all 0.6s ease;
+    transition: opacity 0.6s ease;
 
     display: flex;
     flex-direction: column;
@@ -264,7 +258,7 @@
   }
 
   .opponent {
-    top: 28%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(255, 80, 80, 0.18);
@@ -274,7 +268,7 @@
   }
 
   .me {
-    bottom: 28%;
+    bottom: 25%;
     left: 50%;
     transform: translate(-50%, 50%);
     background: rgba(80, 160, 255, 0.18);
