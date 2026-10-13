@@ -575,7 +575,7 @@
 
   /* 盤面に絶対かぶらない固定位置 */
   .opponent {
-    top: 2px;
+    top: 5px;
     background: rgba(255, 80, 80, 0.25);
     border: 1px solid rgba(255, 120, 120, 0.4);
   }
@@ -590,7 +590,7 @@
   }
 
   .me {
-    bottom: 2px;
+    bottom: 5px;
     background: rgba(80, 160, 255, 0.25);
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
