@@ -499,7 +499,7 @@
 
   .timer-bar {
     position: absolute;
-    left: 5%;
+    left: 5px;
     top: 50%;
     transform: translateY(-50%);
     width: 12px;
@@ -575,7 +575,7 @@
 
   /* 盤面に絶対かぶらない固定位置 */
   .opponent {
-    top: 3%;
+    top: 2px;
     background: rgba(255, 80, 80, 0.25);
     border: 1px solid rgba(255, 120, 120, 0.4);
   }
@@ -590,7 +590,7 @@
   }
 
   .me {
-    bottom: 3%;
+    bottom: 2px;
     background: rgba(80, 160, 255, 0.25);
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
