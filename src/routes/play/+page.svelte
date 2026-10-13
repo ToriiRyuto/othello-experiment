@@ -402,8 +402,8 @@
   }
 
   .page {
-    width: 100vw;
-    height: 100vh;
+    width: 100svw;
+    height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -412,8 +412,8 @@
 
   .screen {
     position: relative;
-    width: min(100vw, 66.6667vh);
-    height: min(100vh, 150vw);
+    width: min(100svw, 66.6667svh);
+    height: min(100svh, 150svw);
     aspect-ratio: 2 / 3;
     display: flex;
     justify-content: center;
@@ -499,7 +499,7 @@
 
   .timer-bar {
     position: absolute;
-    left: 5px;
+    left: 5%;
     top: 50%;
     transform: translateY(-50%);
     width: 12px;
@@ -575,7 +575,7 @@
 
   /* 盤面に絶対かぶらない固定位置 */
   .opponent {
-    top: 5px;
+    top: 3%;
     background: rgba(255, 80, 80, 0.25);
     border: 1px solid rgba(255, 120, 120, 0.4);
   }
@@ -590,7 +590,7 @@
   }
 
   .me {
-    bottom: 5px;
+    bottom: 3%;
     background: rgba(80, 160, 255, 0.25);
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
