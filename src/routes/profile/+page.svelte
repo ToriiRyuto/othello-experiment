@@ -1,30 +1,22 @@
 <script lang="ts">
   /* ----------------------------------------------------
-     ★ スマホ誤操作防止（ズーム・スクロール・リロード防止）
+     ★ スマホ誤操作防止
      ---------------------------------------------------- */
   let lastTap = 0;
   const preventDoubleTapZoom = (e: TouchEvent) => {
     const now = Date.now();
-    if (now - lastTap < 300) {
-      e.preventDefault();
-    }
+    if (now - lastTap < 300) e.preventDefault();
     lastTap = now;
   };
 
   const preventPinchZoom = (e: TouchEvent) => {
-    if (e.touches.length > 1) {
-      e.preventDefault();
-    }
+    if (e.touches.length > 1) e.preventDefault();
   };
 
   let lastTouchY = 0;
   const preventPullToRefresh = (e: TouchEvent) => {
     const touchY = e.touches[0].clientY;
-    const scrollY = window.scrollY;
-
-    if (scrollY === 0 && touchY > lastTouchY) {
-      e.preventDefault();
-    }
+    if (window.scrollY === 0 && touchY > lastTouchY) e.preventDefault();
     lastTouchY = touchY;
   };
 
@@ -215,6 +207,7 @@
     to { opacity: 0; }
   }
 
+  /* ★ 画面全体 */
   .profile {
     width: 100vw;
     height: 100svh;
@@ -224,6 +217,7 @@
     align-items: center;
   }
 
+  /* ★ 画面比率を固定しつつレスポンシブ */
   .screen {
     position: relative;
     width: min(100vw, 66.6667svh);
@@ -239,14 +233,15 @@
     pointer-events: none;
   }
 
+  /* ★ プロフィールカード（レスポンシブ） */
   .card {
     position: absolute;
     width: 80%;
-    height: 32%;
-    padding: 20px;
+    height: clamp(26%, 30svh, 34%);
+    padding: clamp(12px, 3vw, 20px);
     border-radius: 14px;
     backdrop-filter: blur(6px);
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 22px);
     opacity: 0;
     transition: opacity 0.6s ease;
 
@@ -282,16 +277,17 @@
   }
 
   .item.center-text {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 22px);
     margin: 6px 0;
   }
 
+  /* ★ キャラ画像（完全レスポンシブ） */
   .char-image {
-    width: 120px;
-    height: 120px;
+    width: clamp(80px, 18vw, 140px);
+    height: clamp(80px, 18vw, 140px);
     border-radius: 50%;
     background-repeat: no-repeat;
-    margin: 10px 0;
+    margin: clamp(8px, 2vw, 14px) 0;
   }
 
   .center-img {
