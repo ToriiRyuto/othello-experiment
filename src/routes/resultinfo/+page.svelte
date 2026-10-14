@@ -265,7 +265,7 @@
     position: relative;
     z-index: 1;
     padding: clamp(12px, 3vw, 24px);
-    width: 100%;
+    width: min(100vw, 66.6667svh);
     margin: 0 auto;
     text-align: center;
   }
