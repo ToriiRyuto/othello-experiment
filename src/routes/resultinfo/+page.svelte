@@ -272,8 +272,10 @@
 
   /* ★ 結果バナー（レスポンシブ化） */
   .result-banner {
-    font-size: clamp(24px, 6vw, 40px);
+    font-size: clamp(24px, 6vw, 54px);
     font-weight: bold;
+    width: 80%;
+    height: clamp(40px, 12vh, 160px);
     padding: clamp(12px, 3vw, 20px);
     margin-top: clamp(40px, 10svh, 80px);
     margin-bottom: clamp(16px, 4vw, 24px);
