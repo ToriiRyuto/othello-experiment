@@ -262,12 +262,15 @@
   }
 
   .resultinfo {
-    position: relative;
-    z-index: 1;
+    position: absolute;        /* ← relative から absolute に変更 */
+    top: 50%;                  /* ← 画面中央へ */
+    left: 50%;                 /* ← 画面中央へ */
+    transform: translate(-50%, -50%); /* ← 中央固定の必須セット */
+
+    width: min(100vw, 66.6667svh); /* ← 元のまま（変更なし） */
     padding: clamp(12px, 3vw, 24px);
-    width: min(100vw, 66.6667svh);
-    margin: 0 auto;
     text-align: center;
+    z-index: 1;
   }
 
   /* ★ 結果バナー（レスポンシブ化） */
