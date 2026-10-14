@@ -461,7 +461,7 @@
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     border: 4px solid black;
   }
 
