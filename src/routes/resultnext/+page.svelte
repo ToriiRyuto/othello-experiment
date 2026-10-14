@@ -162,6 +162,12 @@
     margin-bottom: clamp(10px, 2vw, 20px);
   }
 
+  h4 {
+    font-size: clamp(14px, 3vw, 28px);
+    margin-top: clamp(20px, 5svh, 40px);
+    margin-bottom: clamp(10px, 2vw, 20px);
+  }
+
   /* ★ ログボックス（縦幅・フォント流動化） */
   .log-box {
     margin-top: clamp(10px, 2vw, 20px);
