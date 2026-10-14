@@ -281,6 +281,9 @@
     margin-bottom: clamp(16px, 4vw, 24px);
     border-radius: 12px;
     animation: glow 2s infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .YouWin { color: #ffd700; border: 2px solid #ffd700; box-shadow: 0 0 20px #ffd700; }
