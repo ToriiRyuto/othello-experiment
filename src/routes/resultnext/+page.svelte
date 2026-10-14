@@ -118,7 +118,7 @@
 
   .resultnext-page {
     width: 100vw;
-    min-height: 100vh;
+    min-height: 100svh;
     background: #000;
     position: relative;
     overflow: hidden;
@@ -127,6 +127,7 @@
 
   .background-image {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -134,54 +135,69 @@
     z-index: 0;
   }
 
+  /* ★ 全端末で中央固定＋流動的な横幅 */
   .resultnext {
-    position: relative;
-    z-index: 1;
-    padding: 20px;
-    max-width: 420px;
-    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: clamp(280px, 90vw, 700px); /* iPhone→280〜420px / iPad→600〜700px */
+    padding: clamp(16px, 4vw, 32px);
+
     text-align: center;
+    z-index: 1;
   }
 
+  /* ★ タイトル */
   h2 {
-    font-size: 26px;
-    margin-top: 150px;
-    margin-bottom: 10px;
+    font-size: clamp(22px, 5vw, 48px);
+    margin-top: clamp(40px, 10svh, 120px);
+    margin-bottom: clamp(8px, 2vw, 20px);
   }
 
+  /* ★ 説明文 */
+  p {
+    font-size: clamp(14px, 3vw, 28px);
+    margin-bottom: clamp(10px, 2vw, 20px);
+  }
+
+  /* ★ ログボックス（縦幅・フォント流動化） */
   .log-box {
-    margin-top: 10px;
-    padding: 12px;
+    margin-top: clamp(10px, 2vw, 20px);
+    padding: clamp(12px, 3vw, 20px);
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 8px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 26px);
     word-break: break-all;
     cursor: pointer;
     user-select: text;
   }
 
+  /* ★ アンケートリンク */
   .survey-link {
     display: block;
-    margin-top: 20px;
-    padding: 12px;
+    margin-top: clamp(20px, 4vw, 32px);
+    padding: clamp(12px, 3vw, 20px);
     background: #4af;
     color: #000;
     text-align: center;
     border-radius: 10px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 32px);
   }
-  
+
+  /* ★ ホームボタン */
   .home-button {
     display: block;
-    margin-top: 20px;
-    padding: 12px;
+    margin-top: clamp(20px, 4vw, 32px);
+    padding: clamp(12px, 3vw, 20px);
     background: #aaa;
     color: #000;
     text-align: center;
     border-radius: 10px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 32px);
   }
 </style>
