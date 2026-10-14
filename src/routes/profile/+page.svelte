@@ -72,10 +72,7 @@
     firstPlayer = localStorage.getItem("firstPlayer") || "me";
 
     if (managementNumber === 1) {
-      const wait = 1200 + Math.random() * 1600;
-      setTimeout(() => {
-        window.location.href = "/play";
-      }, wait);
+      window.location.href = "/play";
       return;
     }
 
@@ -241,7 +238,7 @@
     padding: clamp(12px, 3vw, 20px);
     border-radius: 14px;
     backdrop-filter: blur(6px);
-    font-size: clamp(14px, 2.5vw, 22px);
+    font-size: clamp(14px, 2.5vw, 32px);
     opacity: 0;
     transition: opacity 0.6s ease;
 
@@ -277,17 +274,17 @@
   }
 
   .item.center-text {
-    font-size: clamp(14px, 2.5vw, 22px);
+    font-size: clamp(14px, 2.5vw, 32px);
     margin: 6px 0;
   }
 
   /* ★ キャラ画像（完全レスポンシブ） */
   .char-image {
-    width: clamp(80px, 18vw, 140px);
-    height: clamp(80px, 18vw, 140px);
+    width: clamp(90px, 18vw, 200px);
+    height: clamp(90px, 18vw, 200px);
     border-radius: 50%;
     background-repeat: no-repeat;
-    margin: clamp(8px, 2vw, 14px) 0;
+    margin: clamp(8px, 2vw, 16px) 0;
   }
 
   .center-img {
