@@ -521,7 +521,7 @@
   .profile-card {
     position: absolute;
     width: 90%;
-    height: clamp(70px, 12vh, 120px);
+    height: clamp(70px, 12vh, 180px);
     left: 50%;
     transform: translateX(-50%);
     padding: clamp(8px, 2vw, 16px);
@@ -546,16 +546,16 @@
 
   /* ★ アイコン（レスポンシブ） */
   .icon.big {
-    width: clamp(70px, 18vw, 160px);
     height: clamp(70px, 18vw, 160px);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 600% 300%;
   }
 
   .icon {
-    width: clamp(60px, 16vw, 140px);
     height: clamp(60px, 16vw, 140px);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 600% 300%;

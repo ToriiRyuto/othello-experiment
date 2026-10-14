@@ -280,8 +280,8 @@
 
   /* ★ キャラ画像（完全レスポンシブ） */
   .char-image {
-    width: clamp(90px, 18vw, 300px);
     height: clamp(90px, 18vw, 300px);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-repeat: no-repeat;
     margin: clamp(8px, 2vw, 16px) 0;
