@@ -461,7 +461,7 @@
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1 / 1;
     border: 4px solid black;
   }
 
@@ -592,13 +592,13 @@
 
   /* ★ 盤面に絶対かぶらない位置 */
   .opponent {
-    top: 5%;
+    top: clamp(1%, 10svh, 5%);
     background: rgba(255, 80, 80, 0.25);
     border: 1px solid rgba(255, 120, 120, 0.4);
   }
 
   .me {
-    bottom: 5%;
+    bottom: clamp(1%, 10svh, 5%);
     background: rgba(80, 160, 255, 0.25);
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
