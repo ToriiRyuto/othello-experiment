@@ -492,8 +492,8 @@
   .white { background: white; }
 
   .placeable {
-    width: 40%;
     height: 40%;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
   }
