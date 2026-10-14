@@ -280,7 +280,7 @@
     width: 90%;
     height: clamp(28px, 5vh, 160px);
     padding: clamp(12px, 3vw, 20px);
-    margin-top: clamp(40px, 10svh, 80px);
+    margin-top: clamp(20px, 5svh, 80px);
     margin-bottom: clamp(16px, 4vw, 24px);
     margin-left: auto;
     margin-right: auto;
