@@ -265,7 +265,6 @@
     position: relative;
     z-index: 1;
     padding: clamp(12px, 3vw, 24px);
-    max-width: min(420px, 90vw); /* play と同じスマホ最適化 */
     margin: 0 auto;
     text-align: center;
   }
