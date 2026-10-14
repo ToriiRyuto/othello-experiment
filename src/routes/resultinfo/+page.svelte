@@ -288,7 +288,7 @@
   /* ★ プロフィールカード（play と同じレスポンシブ） */
   .profile-card {
     width: 90%;
-    height: clamp(70px, 12vh, 120px);
+    height: clamp(70px, 12vh, 200px);
     margin: clamp(16px, 4vw, 24px) auto;
     padding: clamp(8px, 2vw, 16px);
     border-radius: 10px;
@@ -328,7 +328,7 @@
   .profile-card.m2 .comment {
     width: 100%;
     text-align: center;
-    font-size: clamp(14px, 3vw, 24px);
+    font-size: clamp(14px, 3vw, 32px);
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -352,16 +352,16 @@
   }
 
   .icon.big {
-    width: clamp(70px, 18vw, 160px);
     height: clamp(70px, 18vw, 160px);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 600% 300%;
   }
 
   .icon {
-    width: clamp(60px, 16vw, 140px);
     height: clamp(60px, 16vw, 140px);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: 600% 300%;
@@ -379,12 +379,12 @@
     max-width: 340px;
     margin: clamp(12px, 3vw, 20px) auto;
     position: relative;
-    height: clamp(50px, 12vh, 90px); /* スマホで潰れない */
+    height: clamp(50px, 12vh, 130px); /* スマホで潰れない */
   }
 
   .disc {
-    width: clamp(24px, 6vw, 36px);
-    height: clamp(24px, 6vw, 36px);
+    width: clamp(24px, 6vw, 54px);
+    height: clamp(24px, 6vw, 54px);
     border-radius: 50%;
     position: absolute;
     left: clamp(40px, 10vw, 60px);
@@ -414,7 +414,7 @@
   /* ★ 次へヒント（レスポンシブ） */
   .next-hint {
     position: absolute;
-    bottom: clamp(8%, 12svh, 14%);
+    bottom: clamp(0%, 2svh, 10%);
     width: 100%;
     text-align: center;
     font-size: clamp(16px, 4vw, 24px);
