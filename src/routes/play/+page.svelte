@@ -406,7 +406,7 @@
 
   /* ★ 全体レイアウト */
   .page {
-    width: 100svw;
+    width: 100vw;
     height: 100svh;
     display: flex;
     justify-content: center;
@@ -417,7 +417,7 @@
   /* ★ 画面比率固定（2:3）＋レスポンシブ */
   .screen {
     position: relative;
-    width: min(100svw, 66.6667svh);
+    width: min(100vw, 66.6667svh);
     aspect-ratio: 2 / 3;
     display: flex;
     justify-content: center;
@@ -480,6 +480,7 @@
   .disc {
     width: 80%;
     height: 80%;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     transition: transform 0.4s ease;
   }
@@ -505,7 +506,7 @@
     top: 50%;
     transform: translateY(-50%);
     width: clamp(10px, 2vw, 16px);
-    height: clamp(200px, 40vh, 320px);
+    height: clamp(200px, 40vh, 480px);
     border: 2px solid rgba(255, 255, 0, 0.5);
     background: rgba(255, 255, 0, 0.2);
     display: flex;
