@@ -53,7 +53,7 @@
     }
 
     //const wait = 5000 + Math.random() * 10000;
-    const wait = 1000;
+    const wait = 2000;
     console.log(`マッチング中... ${wait}ms 後に遷移します`);
 
     const timer = setTimeout(() => {
@@ -104,7 +104,6 @@
 </div>
 
 <style>
-  /* ★ スマホ誤操作防止 */
   :global(html),
   :global(body) {
     margin: 0;
@@ -115,9 +114,9 @@
     touch-action: none;
     -webkit-user-select: none;
     user-select: none;
+    background: #000;
   }
 
-  /* ★ フェードアウトアニメーション */
   :global(.fade-out) {
     animation: fadeOut 0.6s forwards;
   }
@@ -127,44 +126,52 @@
     to { opacity: 0; }
   }
 
+  /* ★ 全体レイアウト（svhでAndroid対応） */
   .matching {
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
+  /* ★ 画面比率を固定しつつレスポンシブ */
   .screen {
     position: relative;
-    width: min(100vw, 66.6667vh);
-    height: min(100vh, 150vw);
+    width: min(100vw, 66.6667svh);
     aspect-ratio: 2 / 3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
   }
 
+  /* ★ テキスト（最大32px） */
   .management {
     position: absolute;
     top: 15%;
-    font-size: 14px;
+    font-size: clamp(14px, 3vw, 32px);
     color: #ccc;
   }
 
   .title {
-    font-size: 18px;
+    font-size: clamp(18px, 4vw, 32px);
     font-weight: bold;
     color: #fff;
     text-align: center;
     white-space: nowrap;
   }
 
+  .message {
+    margin-top: 10%;
+    font-size: clamp(14px, 3vw, 32px);
+    color: #ccc;
+  }
+
+  /* ★ ローディングアニメ（レスポンシブ） */
   .loader {
     position: relative;
-    width: 28%;
+    width: clamp(80px, 28%, 220px); /* iPadで大きく */
     aspect-ratio: 1;
     margin-top: 12%;
   }
@@ -231,11 +238,5 @@
     70% { transform: rotateY(900deg); }
     84% { transform: rotateY(1080deg); }
     96% { transform: rotateY(1260deg); }
-  }
-
-  .message {
-    margin-top: 10%;
-    font-size: 14px;
-    color: #ccc;
   }
 </style>
