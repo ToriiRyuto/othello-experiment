@@ -478,7 +478,6 @@
   }
 
   .disc {
-    width: 80%;
     height: 80%;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
