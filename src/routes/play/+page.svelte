@@ -393,14 +393,18 @@
 </script>
 
 <style>
-  /* ★ スマホ誤操作防止（ズーム・スクロール・選択禁止） */
+  /* ★ スマホ誤操作防止 */
   html, body {
     overflow: hidden;
     touch-action: none;
     -webkit-user-select: none;
     user-select: none;
+    margin: 0;
+    padding: 0;
+    background: #000;
   }
 
+  /* ★ 全体レイアウト */
   .page {
     width: 100svw;
     height: 100svh;
@@ -410,10 +414,10 @@
     background: #000;
   }
 
+  /* ★ 画面比率固定（2:3）＋レスポンシブ */
   .screen {
     position: relative;
     width: min(100svw, 66.6667svh);
-    height: min(100svh, 150svw);
     aspect-ratio: 2 / 3;
     display: flex;
     justify-content: center;
@@ -421,89 +425,87 @@
     background: #000;
   }
 
+  /* ★ 背景画像 */
   .background-image {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     pointer-events: none;
-    user-select: none;
   }
 
+  /* ★ ゲームエリア */
   .game-area {
     position: relative;
     width: 100%;
     height: 100%;
   }
 
+  /* ★ 盤面（レスポンシブ） */
   .board-wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: clamp(70%, 80%, 90%);
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
+  /* ★ 盤面マス（レスポンシブ） */
   .board {
     display: grid;
-    grid-template-columns: repeat(6, 50px);
-    grid-template-rows: repeat(6, 50px);
-    gap: 0;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    width: 100%;
+    height: 100%;
     border: 4px solid black;
   }
 
   .cell {
-    width: 50px;
-    height: 50px;
     background: #0a7f00;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     color: white;
-    font-size: 20px;
+    font-size: clamp(14px, 3vw, 28px);
     border: 1.5px solid black;
     box-sizing: border-box;
   }
 
   .disc {
-    height: 40px;
-    width: 40px;
+    width: 70%;
+    height: 70%;
     border-radius: 50%;
     transition: transform 0.4s ease;
-    transform: scaleX(1);
   }
 
   .disc.animating {
     transform: scaleX(0);
   }
 
-  .black {
-    background: black;
-  }
-
-  .white {
-    background: white;
-  }
+  .black { background: black; }
+  .white { background: white; }
 
   .placeable {
-    width: 20px;
-    height: 20px;
+    width: 40%;
+    height: 40%;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
   }
 
+  /* ★ タイマー（レスポンシブ） */
   .timer-bar {
     position: absolute;
     left: 5%;
     top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 300px;
+    width: clamp(10px, 2vw, 16px);
+    height: clamp(200px, 40vh, 320px);
     border: 2px solid rgba(255, 255, 0, 0.5);
     background: rgba(255, 255, 0, 0.2);
     display: flex;
@@ -515,38 +517,62 @@
     transition: height 0.2s linear;
   }
 
-  /* プロフィールカード（共通） */
+  /* ★ プロフィールカード（共通） */
   .profile-card {
     position: absolute;
     width: 90%;
-    height: 80px;
+    height: clamp(70px, 12vh, 120px);
     left: 50%;
     transform: translateX(-50%);
-    padding: 12px 16px;
+    padding: clamp(8px, 2vw, 16px);
     border-radius: 10px;
     color: #fff;
     backdrop-filter: blur(6px);
-
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* 管理番号4専用 */
+  /* ★ 管理番号4専用 */
   .profile-card.m4 {
     justify-content: flex-start;
-    padding-left: 16px;
   }
 
-  .profile-card.m4 .row {
-    justify-content: flex-start;
+  .row {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 3vw, 20px);
   }
 
-  .profile-card.m4 .icon.big {
-    flex-shrink: 0;
+  /* ★ アイコン（レスポンシブ） */
+  .icon.big {
+    width: clamp(70px, 18vw, 160px);
+    height: clamp(70px, 18vw, 160px);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: 600% 300%;
   }
 
-  /* 管理番号2専用 */
+  .icon {
+    width: clamp(60px, 16vw, 140px);
+    height: clamp(60px, 16vw, 140px);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: 600% 300%;
+  }
+
+  /* ★ テキスト */
+  .name {
+    font-size: clamp(14px, 3vw, 32px);
+    font-weight: bold;
+  }
+
+  .comment {
+    font-size: clamp(12px, 2.5vw, 28px);
+    margin-top: 4px;
+  }
+
+  /* ★ 管理番号2専用 */
   .profile-card.m2 {
     flex-direction: column;
     justify-content: center;
@@ -556,37 +582,19 @@
   .profile-card.m2 .comment {
     width: 100%;
     text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
   }
 
-  .profile-card.m2 .comment {
-    margin-top: 4px;
-  }
-
-  /* 管理番号1専用 */
+  /* ★ 管理番号1専用 */
   .profile-card.m1 {
     justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: clamp(18px, 4vw, 32px);
   }
 
-  /* 盤面に絶対かぶらない固定位置 */
+  /* ★ 盤面に絶対かぶらない位置 */
   .opponent {
     top: 5%;
     background: rgba(255, 80, 80, 0.25);
     border: 1px solid rgba(255, 120, 120, 0.4);
-  }
-
-  .thinking {
-    position: absolute;
-    right: 10px;
-    bottom: 6px;
-    font-size: 13px;
-    opacity: 0.85;
-    color: #fff;
   }
 
   .me {
@@ -595,45 +603,14 @@
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
 
-  .row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .icon.big {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: 600% 300%;
-  }
-
-  .icon {
-    width: 80px;
-    height: 80px;
-    margin: 6px auto 0;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: 600% 300%;
-  }
-
-  .text-block {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .name {
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .comment {
-    font-size: 13px;
-    margin-top: 4px;
+  /* ★ AI思考中 */
+  .thinking {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    font-size: clamp(12px, 2vw, 24px);
+    opacity: 0.85;
+    color: #fff;
   }
 </style>
 
