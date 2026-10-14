@@ -478,7 +478,7 @@
   }
 
   .disc {
-    width: 20%;
+    width: 90%;
     height: 90%;
     border-radius: 50%;
     transition: transform 0.4s ease;
