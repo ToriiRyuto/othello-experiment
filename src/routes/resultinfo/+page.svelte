@@ -275,10 +275,12 @@
     font-size: clamp(24px, 6vw, 54px);
     font-weight: bold;
     width: 90%;
-    height: clamp(40px, 12vh, 160px);
+    height: clamp(28px, 5vh, 160px);
     padding: clamp(12px, 3vw, 20px);
     margin-top: clamp(40px, 10svh, 80px);
     margin-bottom: clamp(16px, 4vw, 24px);
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 12px;
     animation: glow 2s infinite alternate;
     display: flex;
