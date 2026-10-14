@@ -592,13 +592,13 @@
 
   /* ★ 盤面に絶対かぶらない位置 */
   .opponent {
-    top: clamp(1%, 5%, 10%);
+    top: clamp(1%, 2%, 10%);
     background: rgba(255, 80, 80, 0.25);
     border: 1px solid rgba(255, 120, 120, 0.4);
   }
 
   .me {
-    bottom: clamp(1%, 5%, 10%);
+    bottom: clamp(1%, 2%, 10%);
     background: rgba(80, 160, 255, 0.25);
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
