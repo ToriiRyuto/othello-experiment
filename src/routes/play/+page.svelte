@@ -444,15 +444,35 @@
 
   /* ★ 盤面（レスポンシブ） */
   .board-wrapper {
+    --board-size: clamp(70%, 80%, 90%); /* ← CSS変数で盤面サイズを定義 */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(70%, 80%, 90%);
-    aspect-ratio: 1 / 1;
+    width: var(--board-size);
+    height: var(--board-size); /* ← 正方形を保証 */
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  /* ★ タイマー（盤面と完全一致） */
+  .timer-bar {
+    position: absolute;
+    left: calc(-clamp(10px, 2vw, 16px) - 8px); /* ← 盤面の左に固定 */
+    top: 0;
+    width: clamp(10px, 2vw, 16px);
+    height: 100%; /* ← 盤面と完全一致 */
+    border: 2px solid rgba(255, 255, 0, 0.5);
+    background: rgba(255, 255, 0, 0.2);
+    display: flex;
+    flex-direction: column-reverse;
+    pointer-events: none;
+  }
+
+  .timer-fill {
+    width: 100%;
+    transition: height 0.2s linear;
   }
 
   /* ★ 盤面マス（レスポンシブ） */
@@ -496,25 +516,6 @@
     height: 40%;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
-  }
-
-  /* ★ タイマー（レスポンシブ） */
-  .timer-bar {
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(10px, 2vw, 16px);
-    height: clamp(200px, 40vh, 480px);
-    border: 2px solid rgba(255, 255, 0, 0.5);
-    background: rgba(255, 255, 0, 0.2);
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
-  .timer-fill {
-    width: 100%;
-    transition: height 0.2s linear;
   }
 
   /* ★ プロフィールカード（共通） */
@@ -667,19 +668,21 @@
     </div>
 
     <div class="game-area">
-      {#if getTurn($moveCount) !== aiPlayer}
-        <div class="timer-bar">
-          <div
-            class="timer-fill"
-            style="
-              height: {$playerTimeLeft * (100/30)}%;
-              background: hsl({$playerTimeLeft * (120/30)}, 80%, 50%);
-            "
-          ></div>
-        </div>
-      {/if}
 
       <div class="board-wrapper">
+
+        {#if getTurn($moveCount) !== aiPlayer}
+          <div class="timer-bar">
+            <div
+              class="timer-fill"
+              style="
+                height: {$playerTimeLeft * (100/30)}%;
+                background: hsl({$playerTimeLeft * (120/30)}, 80%, 50%);
+              "
+            ></div>
+          </div>
+        {/if}
+
         <div class="board">
           {#each $boardView as row, y (y)}
             {#each row as cell, x (`${y}-${x}`)}
@@ -695,6 +698,7 @@
             {/each}
           {/each}
         </div>
+
       </div>
     </div>
 
