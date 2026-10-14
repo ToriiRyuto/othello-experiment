@@ -231,17 +231,20 @@
 </div>
 
 <style>
-  /* ★ スマホ誤操作防止 */
+  /* ★ スマホ誤操作防止（play と統一） */
   html, body {
     overflow: hidden;
     touch-action: none;
     -webkit-user-select: none;
     user-select: none;
+    margin: 0;
+    padding: 0;
+    background: #000;
   }
 
   .resultinfo-page {
     width: 100vw;
-    min-height: 100vh;
+    min-height: 100svh;
     background: #000;
     position: relative;
     overflow: hidden;
@@ -250,9 +253,10 @@
 
   .background-image {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: contain; /* play と統一 */
     pointer-events: none;
     z-index: 0;
   }
@@ -260,18 +264,19 @@
   .resultinfo {
     position: relative;
     z-index: 1;
-    padding: 20px;
-    max-width: 420px;
+    padding: clamp(12px, 3vw, 24px);
+    max-width: min(420px, 90vw); /* play と同じスマホ最適化 */
     margin: 0 auto;
     text-align: center;
   }
 
+  /* ★ 結果バナー（レスポンシブ化） */
   .result-banner {
-    font-size: 32px;
+    font-size: clamp(24px, 6vw, 40px);
     font-weight: bold;
-    padding: 16px;
-    margin-top: 70px;
-    margin-bottom: 20px;
+    padding: clamp(12px, 3vw, 20px);
+    margin-top: clamp(40px, 10svh, 80px);
+    margin-bottom: clamp(16px, 4vw, 24px);
     border-radius: 12px;
     animation: glow 2s infinite alternate;
   }
@@ -280,11 +285,12 @@
   .YouLose { color: #ff5050; border: 2px solid #ff5050; box-shadow: 0 0 20px #ff5050; }
   .Draw { color: #4abaff; border: 2px solid #4abaff; box-shadow: 0 0 20px #4abaff; }
 
+  /* ★ プロフィールカード（play と同じレスポンシブ） */
   .profile-card {
     width: 90%;
-    height: 80px;
-    margin: 20px auto;
-    padding: 12px 16px;
+    height: clamp(70px, 12vh, 120px);
+    margin: clamp(16px, 4vw, 24px) auto;
+    padding: clamp(8px, 2vw, 16px);
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -301,9 +307,10 @@
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
 
+  /* ★ 管理番号4（play と統一） */
   .profile-card.m4 {
     justify-content: flex-start;
-    padding-left: 16px;
+    padding-left: clamp(12px, 3vw, 20px);
   }
   .profile-card.m4 .row {
     justify-content: flex-start;
@@ -312,6 +319,7 @@
     flex-shrink: 0;
   }
 
+  /* ★ 管理番号2（play と統一） */
   .profile-card.m2 {
     flex-direction: column;
     justify-content: center;
@@ -320,7 +328,7 @@
   .profile-card.m2 .comment {
     width: 100%;
     text-align: center;
-    font-size: 16px;
+    font-size: clamp(14px, 3vw, 24px);
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -329,30 +337,34 @@
     margin-top: 4px;
   }
 
+  /* ★ 管理番号1（play と統一） */
   .profile-card.m1 {
     justify-content: center;
-    font-size: 18px;
+    font-size: clamp(18px, 4vw, 32px);
     font-weight: bold;
   }
 
+  /* ★ アイコン（play と統一） */
   .row {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: clamp(10px, 3vw, 20px);
   }
 
   .icon.big {
-    width: 90px;
-    height: 90px;
+    width: clamp(70px, 18vw, 160px);
+    height: clamp(70px, 18vw, 160px);
     border-radius: 50%;
     background-repeat: no-repeat;
+    background-size: 600% 300%;
   }
 
   .icon {
-    width: 80px;
-    height: 80px;
+    width: clamp(60px, 16vw, 140px);
+    height: clamp(60px, 16vw, 140px);
     border-radius: 50%;
     background-repeat: no-repeat;
+    background-size: 600% 300%;
   }
 
   .text-block {
@@ -361,20 +373,21 @@
     text-align: left;
   }
 
+  /* ★ 駒スタック（スマホ対応） */
   .disc-stack {
     width: 100%;
     max-width: 340px;
-    margin: 14px auto;
+    margin: clamp(12px, 3vw, 20px) auto;
     position: relative;
-    height: 60px;
+    height: clamp(50px, 12vh, 90px); /* スマホで潰れない */
   }
 
   .disc {
-    width: 32px;
-    height: 32px;
+    width: clamp(24px, 6vw, 36px);
+    height: clamp(24px, 6vw, 36px);
     border-radius: 50%;
     position: absolute;
-    left: 50px;
+    left: clamp(40px, 10vw, 60px);
   }
 
   .disc.black {
@@ -390,20 +403,21 @@
   .score-text {
     position: absolute;
     left: 0;
-    top: 16px;
+    top: 50%;
     transform: translateY(-50%);
-    font-size: 22px;
+    font-size: clamp(18px, 4vw, 28px);
     font-weight: bold;
-    width: 40px;
+    width: clamp(40px, 10vw, 60px);
     text-align: center;
   }
 
+  /* ★ 次へヒント（レスポンシブ） */
   .next-hint {
     position: absolute;
-    bottom: 12%;
+    bottom: clamp(8%, 12svh, 14%);
     width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: clamp(16px, 4vw, 24px);
     opacity: 0.8;
   }
 
