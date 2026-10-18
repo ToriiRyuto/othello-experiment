@@ -505,7 +505,7 @@
     top: 50%;
     transform: translateY(-50%);
     width: clamp(10px, 2vw, 16px);
-    height: clamp(200px, 40vh, 480px);
+    height: clamp(200px, 40vh, 440px);
     border: 2px solid rgba(255, 255, 0, 0.5);
     background: rgba(255, 255, 0, 0.2);
     display: flex;
