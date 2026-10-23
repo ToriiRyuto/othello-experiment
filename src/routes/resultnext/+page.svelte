@@ -68,7 +68,7 @@
     const num = Number(localStorage.getItem("managementNumber") ?? 1);
     const surveyUrls = {
       1: "https://forms.gle/7JHAw4mfboDtQ82y6",
-      2: "https://forms.gle/Q6w6H1k7opTq3GVw6",
+      2: "https://forms.gle/Fo94AjD8535akGdNA",
       3: "https://forms.gle/wbwpy4Sehg5uNy128",
       4: "https://forms.gle/Q6w6H1k7opTq3GVw6"
     };
