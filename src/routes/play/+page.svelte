@@ -637,13 +637,13 @@
           ></div>
 
           <div class="text-block">
-            <div class="name">名前：{oppName}</div>
-            <div class="comment">コメント：{oppComment}</div>
+            <div class="name">{oppName}</div>
+            <div class="comment">{oppComment}</div>
           </div>
         </div>
 
       {:else if managementNumber === 2}
-        <div class="name">名前：{oppName}</div>
+        <div class="name">{oppName}</div>
         <div class="comment">{oppComment}</div>
 
       {:else if managementNumber === 3}
@@ -717,8 +717,8 @@
           ></div>
 
           <div class="text-block">
-            <div class="name">名前：{myName}</div>
-            <div class="comment">コメント：{myComment}</div>
+            <div class="name">{myName}</div>
+            <div class="comment">{myComment}</div>
           </div>
         </div>
 

@@ -122,11 +122,11 @@
           `}
         ></div>
 
-        <div class="item center-text">コメント：{opponentComment}</div>
+        <div class="item center-text">{opponentComment}</div>
 
       {:else if managementNumber === 2}
-        <div class="item center-text">名前：{opponentName}</div>
-        <div class="item center-text">コメント：{opponentComment}</div>
+        <div class="item center-text">{opponentName}</div>
+        <div class="item center-text">{opponentComment}</div>
 
       {:else if managementNumber === 3}
         <div
@@ -146,7 +146,7 @@
     <div class={`card me ${showMe ? 'show' : ''}`}>
 
       {#if managementNumber === 4}
-        <div class="item center-text">名前：{username}</div>
+        <div class="item center-text">{username}</div>
 
         <div
           class="char-image center-img"
@@ -158,11 +158,11 @@
           `}
         ></div>
 
-        <div class="item center-text">コメント：{comment}</div>
+        <div class="item center-text">{comment}</div>
 
       {:else if managementNumber === 2}
-        <div class="item center-text">名前：{username}</div>
-        <div class="item center-text">コメント：{comment}</div>
+        <div class="item center-text">{username}</div>
+        <div class="item center-text">{comment}</div>
 
       {:else if managementNumber === 3}
         <div
