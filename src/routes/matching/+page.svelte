@@ -52,8 +52,8 @@
       managementNumber = 1;
     }
 
-    //const wait = 5000 + Math.random() * 10000;
-    const wait = 2000;
+    const wait = 5000 + Math.random() * 10000;
+    //const wait = 2000;
     console.log(`マッチング中... ${wait}ms 後に遷移します`);
 
     const timer = setTimeout(() => {
