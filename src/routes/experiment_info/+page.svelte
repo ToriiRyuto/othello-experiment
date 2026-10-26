@@ -46,6 +46,8 @@
 
 <div class="exp-page">
 
+  <h1>実験説明用画面</h1>
+
   <!-- ★ 画面上部メッセージ -->
   <div class="top-message">
     はじめに実験説明資料を確認してください
