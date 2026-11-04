@@ -317,13 +317,23 @@
     border: 1px solid rgba(120, 180, 255, 0.4);
   }
 
+  .name {
+    font-size: clamp(20px, 4vw, 40px);
+    font-weight: bold;
+  }
+
+  .comment {
+    font-size: clamp(16px, 3vw, 32px);
+    margin-top: 6px;
+  }
+
   /* ★ 管理番号4（play と統一） */
   .profile-card.m4 {
-    justify-content: flex-start;
+    justify-content: center;
     padding-left: clamp(12px, 3vw, 20px);
   }
   .profile-card.m4 .row {
-    justify-content: flex-start;
+    justify-content: center;
   }
   .profile-card.m4 .icon.big {
     flex-shrink: 0;
@@ -338,7 +348,7 @@
   .profile-card.m2 .comment {
     width: 100%;
     text-align: center;
-    font-size: clamp(14px, 3vw, 32px);
+    font-size: clamp(20px, 3vw, 40px);
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -350,7 +360,7 @@
   /* ★ 管理番号1（play と統一） */
   .profile-card.m1 {
     justify-content: center;
-    font-size: clamp(18px, 4vw, 32px);
+    font-size: clamp(20px, 4vw, 40px);
     font-weight: bold;
   }
 
@@ -358,6 +368,7 @@
   .row {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: clamp(10px, 3vw, 20px);
   }
 
