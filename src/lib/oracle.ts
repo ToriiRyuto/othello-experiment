@@ -70,18 +70,26 @@ function surroundScore(bb: Bitboard, player: Disc): number {
 // ★ 盤面全体の位置評価（探索先にも適用される）
 function positionScore(bb: Bitboard, player: Disc): number {
   const myBits = player === 'black' ? bb.black : bb.white;
-  let score = 0;
+  const oppBits = player === 'black' ? bb.white : bb.black;
+
+  let myScore = 0;
+  let oppScore = 0;
 
   for (let y = 0; y < 6; y++) {
     for (let x = 0; x < 6; x++) {
       const mask = posToBit(x, y);
+
       if (myBits & mask) {
-        score += positionWeight[y][x];
+        myScore += positionWeight[y][x];
+      }
+
+      if (oppBits & mask) {
+        oppScore += positionWeight[y][x];
       }
     }
   }
 
-  return score;
+  return myScore - oppScore;
 }
 
 // ★ 評価（位置評価も moveCount に応じて重みづけ）
@@ -95,7 +103,7 @@ export function evaluate(bb: Bitboard, moveCount: number, player: Disc): number 
   if (moveCount <= 2) {
     return pos * 0.3 + noise;
   } else if (moveCount <= 24) {
-    return disc * 1.0 + mobility * 1.5 + surround * 0.5 + pos * 1.5 + noise;
+    return disc * 3.0 + mobility * 2.0 + surround * 0.5 + pos * 0.5 + noise;
   } else {
     const ideal = -4;
     const endgame = disc > 0
