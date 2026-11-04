@@ -102,8 +102,8 @@ export function evaluate(bb: Bitboard, moveCount: number, player: Disc): number 
 
   if (moveCount <= 2) {
     return pos * 0.3 + noise;
-  } else if (moveCount <= 24) {
-    return disc * 3.0 + mobility * 2.0 + surround * 0.5 + pos * 0.5 + noise;
+  } else if (moveCount <= 20) {
+    return disc * 1.0 + mobility * 1.5 + surround * 0.5 + pos * 0.5 + noise;
   } else {
     const ideal = -4;
     const endgame = disc > 0
@@ -144,7 +144,7 @@ export const alphabeta = (
     for (const [x, y] of placeables) {
       const { newBB } = applyMoveBit(bb, x, y, turn);
       const posScore = 
-        moveCount <= 24
+        moveCount <= 20
           ? positionWeight[y][x] // 今打つ手の位置評価
           : 0; // 終盤は位置評価を無視する
 
@@ -183,7 +183,7 @@ export const alphabeta = (
     for (const [x, y] of placeables) {
       const { newBB } = applyMoveBit(bb, x, y, turn);
       const posScore = 
-        moveCount <= 24
+        moveCount <= 20
           ? positionWeight[y][x] // 今打つ手の位置評価
           : 0; // 終盤は位置評価を無視する
 
