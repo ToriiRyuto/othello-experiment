@@ -708,7 +708,7 @@
         </div>
 
       {:else if managementNumber === 2}
-        <div class="name">名前：{myName}</div>
+        <div class="name">{myName}</div>
         <div class="comment">{myComment}</div>
 
       {:else if managementNumber === 3}
