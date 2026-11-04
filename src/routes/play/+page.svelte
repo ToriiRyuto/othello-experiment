@@ -209,9 +209,8 @@
 
         let dynamicDepth = 1;
         if (count < 2) dynamicDepth = 1;
-        else if (count < 10) dynamicDepth = 8;
-        else if (count < 16) dynamicDepth = 10;
-        else dynamicDepth = 14;
+        else if (count <= 14) dynamicDepth = 8;
+        else dynamicDepth = 10;
 
         worker.postMessage({
           blackBits: bb.black,
