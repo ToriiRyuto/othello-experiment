@@ -229,8 +229,8 @@
 
         let dynamicDepth = 1;
         if (count < 2) dynamicDepth = 1;
-        else if (count < 10) dynamicDepth = 10;
-        else if (count < 16) dynamicDepth = 12;
+        else if (count < 10) dynamicDepth = 8;
+        else if (count < 16) dynamicDepth = 10;
         else dynamicDepth = 14;
 
         worker.postMessage({
