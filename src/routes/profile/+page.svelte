@@ -110,21 +110,23 @@
     <div class={`card opponent ${showOpponent ? 'show' : ''}`}>
 
       {#if managementNumber === 4}
-        <div class="item center-text">名前：{opponentName}</div>
+        <div class="profile-content">
+          <div class="item center-text">{opponentName}</div>
 
-        <div
-          class="char-image center-img"
-          style={`
-            background-image: url(${sprite});
-            background-position: ${positions[opponentIndex]};
-            background-size: 600% 300%;
-            background-color: ${opponentBgColor};
-          `}
-        ></div>
+          <div
+            class="char-image center-img"
+            style={`
+              background-image: url(${sprite});
+              background-position: ${positions[opponentIndex]};
+              background-size: 600% 300%;
+              background-color: ${opponentBgColor};
+            `}
+          ></div>
 
-        <div class="item center-text">{opponentComment}</div>
+          <div class="item center-text">{opponentComment}</div>
+        </div>
 
-      {:else if managementNumber === 2}
+        {:else if managementNumber === 2}
         <div class="item center-text">{opponentName}</div>
         <div class="item center-text">{opponentComment}</div>
 
@@ -146,19 +148,21 @@
     <div class={`card me ${showMe ? 'show' : ''}`}>
 
       {#if managementNumber === 4}
-        <div class="item center-text">{username}</div>
+        <div class="profile-content">
+          <div class="item center-text">{username}</div>
 
-        <div
-          class="char-image center-img"
-          style={`
-            background-image: url(${sprite});
-            background-position: ${positions[profileIndex]};
-            background-size: 600% 300%;
-            background-color: ${myBgColor};
-          `}
-        ></div>
+          <div
+            class="char-image center-img"
+            style={`
+              background-image: url(${sprite});
+              background-position: ${positions[profileIndex]};
+              background-size: 600% 300%;
+              background-color: ${myBgColor};
+            `}
+          ></div>
 
-        <div class="item center-text">{comment}</div>
+          <div class="item center-text">{comment}</div>
+        </div>
 
       {:else if managementNumber === 2}
         <div class="item center-text">{username}</div>
@@ -238,7 +242,6 @@
     padding: clamp(12px, 3vw, 20px);
     border-radius: 14px;
     backdrop-filter: blur(6px);
-    font-size: clamp(14px, 2.5vw, 32px);
     opacity: 0;
     transition: opacity 0.6s ease;
 
@@ -274,7 +277,7 @@
   }
 
   .item.center-text {
-    font-size: clamp(14px, 2.5vw, 32px);
+    font-size: clamp(20px, 2.5vw, 40px);
     margin: 6px 0;
   }
 
@@ -289,5 +292,15 @@
 
   .center-img {
     margin: 10px auto;
+  }
+
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    margin: 0 auto;
   }
 </style>
