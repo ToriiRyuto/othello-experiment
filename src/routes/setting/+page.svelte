@@ -3,14 +3,22 @@
   import bgImage from './bgImage.png';
 
   let username = $state("");
-  let comment = $state("");
   let selected = $state(0);
+  const comments = [
+    'オセロ初心者です！',
+    'よろしくお願いします！',
+    '楽しく対戦しましょう！',
+    'オセロが大好きです！',
+    'お手柔らかにお願いします！',
+    'じっくり考えて打ちます。',
+    '勝負は最後までわからない！',
+    '気軽に対戦どうぞ！'
+  ];
+  let comment = $state(comments[0]);
 
   const isValid = $derived(
     username.length > 0 &&
-    username.length <= 10 &&
-    comment.length > 0 &&
-    comment.length <= 30
+    username.length <= 10
   );
 
   const positions = [
@@ -27,7 +35,7 @@
     setTimeout(() => {
       localStorage.setItem('username', username);
       localStorage.setItem('comment', comment);
-      localStorage.setItem('profileIndex', selected);
+      localStorage.setItem('profileIndex', String(selected));
       window.location.href = '/home';
     }, 600);
   };
@@ -45,12 +53,14 @@
         placeholder="ユーザー名"
       />
 
-      <div class="label">一言コメント（30文字以内）</div>
-      <input
-        class="input"
-        bind:value={comment}
-        placeholder="オセロ初心者です。よろしくお願いします！"
-      />
+      <div class="label">一言コメント</div>
+      <select class="select" bind:value={comment}>
+        {#each comments as text}
+          <option value={text}>
+            {text}
+          </option>
+        {/each}
+      </select>
 
       <div class="label">プロフィール画像</div>
 
@@ -87,12 +97,10 @@
 </div>
 
 <style>
-  /* ★ 背景を黒にして暗転フェードアウトを成立させる */
   :global(html) {
     background: #000;
   }
 
-  /* ★ body.fade-out にフェードアウトを適用（global） */
   :global(body.fade-out) {
     animation: fadeOut 0.6s forwards;
   }
@@ -147,12 +155,14 @@
     margin-top: 12px;
   }
 
-  .input {
+  .input,
+  .select {
     width: 100%;
     padding: 8px;
     border-radius: 6px;
     border: none;
     font-size: 14px;
+    box-sizing: border-box;
   }
 
   .slider {
