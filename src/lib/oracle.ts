@@ -103,7 +103,7 @@ export function evaluate(bb: Bitboard, moveCount: number, player: Disc): number 
   if (moveCount <= 2) {
     return pos * 0.3 + noise;
   } else if (moveCount <= 24) {
-    return disc * 1.0 + mobility * 1.5 + surround * 0.5 + pos * 0.5 + noise;
+    return disc * 1.0 + mobility * 2.5 + surround * 1.5 + pos * 0.3 + noise;
   } else {
     const ideal = -4;
     const endgame = disc > 0
