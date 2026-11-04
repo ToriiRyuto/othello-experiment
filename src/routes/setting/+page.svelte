@@ -163,6 +163,11 @@
     border: none;
     font-size: 14px;
     box-sizing: border-box;
+    color: #000;
+  }
+
+  .select option {
+    color: #000;
   }
 
   .slider {
