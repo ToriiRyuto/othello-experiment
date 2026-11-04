@@ -107,10 +107,10 @@ export function evaluate(bb: Bitboard, moveCount: number, player: Disc): number 
   } else {
     const ideal = -4;
     const endgame = disc > 0
-      ? -Math.abs(disc - ideal) * 3.0
+      ? -Math.abs(disc - ideal) * 2.0
       : -Math.abs(disc - ideal);
 
-    return endgame + pos * 0.5;
+    return endgame * 3.0 + noise;
   }
 }
 
