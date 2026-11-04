@@ -77,6 +77,7 @@
   let firstPlayer = $state("me");
 
   let isAIThinking = false;
+  let aiThinkStart = 0;
 
   const positions = [
     '0% 2%', '20% 2%', '40% 0.5%', '59.7% 2%', '80% 0.5%', '100% 2%',
@@ -127,6 +128,9 @@
     worker = new Worker(new URL('$lib/worker.ts', import.meta.url), { type: 'module' });
 
     worker.onmessage = async (event) => {
+      const thinkTime = performance.now() - aiThinkStart;
+      console.log(`AI思考時間: ${thinkTime.toFixed(0)} ms`);
+
       const { move, explore, prune } = event.data;
 
       const id = get(aiTimerId);
@@ -211,6 +215,8 @@
         if (count < 2) dynamicDepth = 1;
         else if (count <= 14) dynamicDepth = 8;
         else dynamicDepth = 10;
+
+        aiThinkStart = performance.now();
 
         worker.postMessage({
           blackBits: bb.black,
