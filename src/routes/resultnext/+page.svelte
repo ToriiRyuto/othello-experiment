@@ -57,8 +57,14 @@
       const colLetter = ["A","B","C","D","E","F"];
 
       const moves = parsed
-        .map((l: any) => `${colLetter[l.x]}${l.y + 1}`)
-        .join("");
+      .map((l: any) => {
+        const move = `${colLetter[l.x]}${l.y + 1}`;
+
+        return l.thinkTime !== undefined
+          ? `${move}(${l.thinkTime})`
+          : move;
+      })
+      .join("");
 
       logString = `${myColor}|${moves}`;
     } else {

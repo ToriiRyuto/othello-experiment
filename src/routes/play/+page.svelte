@@ -61,6 +61,7 @@
     x: number;
     y: number;
     board: string;
+    thinkTime?: number;
   };
   let moveLogs: MoveLog[] = [];
 
@@ -128,9 +129,6 @@
     worker = new Worker(new URL('$lib/worker.ts', import.meta.url), { type: 'module' });
 
     worker.onmessage = async (event) => {
-      const thinkTime = performance.now() - aiThinkStart;
-      console.log(`AI思考時間: ${thinkTime.toFixed(0)} ms`);
-
       const { move, explore, prune } = event.data;
 
       const id = get(aiTimerId);
@@ -160,7 +158,8 @@
         turn: aiPlayer,
         x,
         y,
-        board: boardToString(newBB)
+        board: boardToString(newBB),
+        thinkTime: Number(((performance.now() - aiThinkStart) / 1000).toFixed(1))
       });
       localStorage.setItem("moveLogs", JSON.stringify(moveLogs));
     };
