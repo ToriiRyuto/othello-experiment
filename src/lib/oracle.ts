@@ -96,15 +96,13 @@ export function evaluate(bb: Bitboard, moveCount: number, player: Disc): number 
     return pos * 0.3 + noise;
   } else if (moveCount <= 18) {
     return disc * 1.0 + mobility * 1.5 + surround * 0.5 + pos * 0.0 + noise;
-  } else if (moveCount <= 28) {
+  } else {
     const ideal = -4;
     const endgame = disc > 0
-      ? -Math.abs(disc - ideal) * 2.0
+      ? -Math.abs(disc - ideal) * 3.0
       : -Math.abs(disc - ideal);
 
     return endgame + pos * 0.5;
-  } else {
-    return -Math.abs(disc) * 100;
   }
 }
 
