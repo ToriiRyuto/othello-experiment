@@ -102,7 +102,7 @@ export function evaluate(bb: Bitboard, moveCount: number, player: Disc): number 
 
   if (moveCount <= 2) {
     return pos * 0.3 + noise;
-  } else if (moveCount <= 20) {
+  } else if (moveCount <= 24) {
     return disc * 1.0 + mobility * 1.5 + surround * 0.5 + pos * 0.5 + noise;
   } else {
     const ideal = -4;

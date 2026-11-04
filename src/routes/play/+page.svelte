@@ -519,12 +519,13 @@
 
   /* ★ 管理番号4専用 */
   .profile-card.m4 {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .row {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: clamp(10px, 3vw, 20px);
   }
 
@@ -547,12 +548,12 @@
 
   /* ★ テキスト */
   .name {
-    font-size: clamp(14px, 3vw, 32px);
+    font-size: clamp(20px, 3vw, 40px);
     font-weight: bold;
   }
 
   .comment {
-    font-size: clamp(12px, 2.5vw, 28px);
+    font-size: clamp(16px, 2.5vw, 32px);
     margin-top: 4px;
   }
 
