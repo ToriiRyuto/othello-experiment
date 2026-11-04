@@ -143,7 +143,10 @@ export const alphabeta = (
 
     for (const [x, y] of placeables) {
       const { newBB } = applyMoveBit(bb, x, y, turn);
-      const posScore = positionWeight[y][x]; // ★ 今打つ手の位置評価
+      const posScore = 
+        moveCount <= 24
+          ? positionWeight[y][x] // 今打つ手の位置評価
+          : 0; // 終盤は位置評価を無視する
 
       const result = alphabeta(
         newBB,
@@ -179,7 +182,10 @@ export const alphabeta = (
 
     for (const [x, y] of placeables) {
       const { newBB } = applyMoveBit(bb, x, y, turn);
-      const posScore = positionWeight[y][x];
+      const posScore = 
+        moveCount <= 24
+          ? positionWeight[y][x] // 今打つ手の位置評価
+          : 0; // 終盤は位置評価を無視する
 
       const result = alphabeta(
         newBB,
