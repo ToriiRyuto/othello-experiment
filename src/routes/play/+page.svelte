@@ -68,9 +68,9 @@
   let myComment = $state("");
   let myIndex = $state(0);
 
-  let oppName = $state("");
-  let oppComment = $state("");
-  let oppIndex = $state(0);
+  let oppName = $state("ハル");
+  let oppComment = $state("最後まであきらめません！");
+  let oppIndex = $state(6);
 
   let managementNumber = $state(1);
 
@@ -118,33 +118,11 @@
     myComment = localStorage.getItem("comment") ?? "";
     myIndex = Number(localStorage.getItem("profileIndex") ?? 0);
 
-    if (aiPlayer === "black") {
-      firstPlayer = "opponent";
-    } else {
-      firstPlayer = "me";
-    }
-    localStorage.setItem("firstPlayer", firstPlayer);
+    firstPlayer = aiPlayer === "black"
+    ? "opponent"
+    : "me";
 
-    if (managementNumber === 1) {
-      oppName = "Haru";
-      oppComment = "";
-      oppIndex = 6;
-    }
-    if (managementNumber === 2) {
-      oppName = "Haru";
-      oppComment = "楽しく対戦しましょう！負けません！";
-      oppIndex = 6;
-    }
-    if (managementNumber === 3) {
-      oppName = "";
-      oppComment = "";
-      oppIndex = 6;
-    }
-    if (managementNumber === 4) {
-      oppName = "Haru";
-      oppComment = "楽しく対戦しましょう！負けません！";
-      oppIndex = 6;
-    }
+    localStorage.setItem("firstPlayer", firstPlayer);
 
     worker = new Worker(new URL('$lib/worker.ts', import.meta.url), { type: 'module' });
 
