@@ -76,6 +76,8 @@
 
   let firstPlayer = $state("me");
 
+  let isAIThinking = false;
+
   const positions = [
     '0% 2%', '20% 2%', '40% 0.5%', '59.7% 2%', '80% 0.5%', '100% 2%',
     '0% 52%', '20% 53%', '40% 53%', '60% 53%', '80% 53%', '100% 53%',
@@ -283,6 +285,7 @@
   }
 
   async function animateFlip(flipped: [number, number][]) {
+    isAIThinking = true;
     for (const [x, y] of flipped) {
       boardView.update(rows => {
         const newRows = rows.map(r => r.map(c => ({ ...c })));
@@ -310,6 +313,7 @@
       });
     }
     await new Promise(r => setTimeout(r, 500));
+    isAIThinking = false;
   }
 
   function startPlayerTimer() {
@@ -360,6 +364,8 @@
   }
 
   const handleClick = async (x: number, y: number) => {
+    if (isAIThinking) return;
+
     const turn = getTurn(get(moveCount));
     if (turn === aiPlayer) return;
 
