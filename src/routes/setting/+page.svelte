@@ -1,5 +1,5 @@
 <script lang="ts">
-  import sprite from './profileImage.png';
+  import sprite from './profileImage2.png';
   import bgImage from './bgImage.png';
 
   let username = $state("");
@@ -19,7 +19,8 @@
 
   const isValid = $derived(
     username.length > 0 &&
-    username.length <= 10
+    username.length <= 10 &&
+    comment !== comments[0]
   );
 
   const positions = [
