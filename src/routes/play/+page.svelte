@@ -71,7 +71,7 @@
 
   let oppName = $state("ハル");
   let oppComment = $state("最後まであきらめません！");
-  let oppIndex = $state(6);
+  let oppIndex = $state(8);
 
   let managementNumber = $state(1);
 

@@ -46,9 +46,9 @@
 
   let managementNumber = $state(1);
 
-  let oppName = $state("");
-  let oppComment = $state("");
-  let oppIndex = $state(0);
+  let oppName = $state("ハル");
+  let oppComment = $state("最後まであきらめません！");
+  let oppIndex = $state(8);
 
   let myName = $state("");
   let myComment = $state("");
@@ -71,10 +71,6 @@
       myIndex = Number(localStorage.getItem("profileIndex") ?? 0);
 
       firstPlayer = localStorage.getItem("firstPlayer") ?? "me";
-
-      oppName = "Haru";
-      oppComment = "楽しく対戦しましょう！負けません！";
-      oppIndex = 6;
     }
   });
 

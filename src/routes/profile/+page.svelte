@@ -39,9 +39,9 @@
   let comment = $state("");
   let profileIndex = $state(0);
 
-  let opponentName = "Haru";
-  let opponentComment = "楽しく対戦しましょう！負けません！";
-  let opponentIndex = 6;
+  let opponentName = "ハル";
+  let opponentComment = "最後まであきらめません！";
+  let opponentIndex = 8;
 
   let firstPlayer = $state("me");
 
