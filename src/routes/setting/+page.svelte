@@ -1,5 +1,5 @@
 <script lang="ts">
-  import sprite from './profileImage2.png';
+  import sprite from './profileImage.png';
   import bgImage from './bgImage.png';
 
   let username = $state("");
